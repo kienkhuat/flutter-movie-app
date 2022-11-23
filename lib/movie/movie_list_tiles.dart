@@ -7,7 +7,7 @@ import 'package:movieapp/constants/poster_root_url.dart';
 import 'package:movieapp/utilities/create_route.dart';
 import 'package:truncate/truncate.dart';
 
-List<Widget> movieListTiles(List<Movie> movieList, dynamic context, String mediaType) {
+List<Widget> movieListTiles(List<Movie> movieList, dynamic context) {
 		List<Widget> childs = [];
 		for(int i = 0; i < movieList.length; i++) {
 			childs.add(
@@ -34,8 +34,10 @@ List<Widget> movieListTiles(List<Movie> movieList, dynamic context, String media
 											height: 240,
 											child: Container(
 												decoration: const BoxDecoration(color: maBlackDarkest),
-												child: movieList[i].posterPath != '' ? CachedNetworkImage(
-													imageUrl: '$posterRootURL${movieList[i].posterPath}',
+												child: movieList[i].profilePath != '' || movieList[i].posterPath != '' ? CachedNetworkImage(
+													imageUrl: movieList[i].mediaType == 'movie' || movieList[i].mediaType == 'tv' 
+													? '$posterRootURL${movieList[i].posterPath}'
+													: '$posterRootURL${movieList[i].profilePath}',
 													placeholder: ((context, url) => const Center(
 														child: CircularProgressIndicator(color: maGrey,)
 													)),
@@ -63,7 +65,7 @@ List<Widget> movieListTiles(List<Movie> movieList, dynamic context, String media
 																),
 															)
 														),
-														Row(
+														movieList[i].mediaType == 'movie' || movieList[i].mediaType == 'tv' ? Row(
 															children: [
 																const Icon(
 																	Icons.star_rounded,
@@ -80,7 +82,7 @@ List<Widget> movieListTiles(List<Movie> movieList, dynamic context, String media
 																),
 																const Text('/10', style: TextStyle(color: Colors.grey, fontSize: 16))
 															],
-														),
+														) : Container(),
 														Container(
 															margin: const EdgeInsets.only(top: 4),
 															child: Text(

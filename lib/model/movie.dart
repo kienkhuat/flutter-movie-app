@@ -11,6 +11,9 @@ class Movie {
 	final List<dynamic> genres;
 	final int runtime;
 	final List<dynamic> seasons;
+	//For People not movie
+	final String profilePath;
+	final String biography;
 
 	late String error;
 
@@ -27,6 +30,8 @@ class Movie {
 		required this.genres,
 		required this.runtime,
 		required this.seasons,
+		required this.profilePath,
+		required this.biography,
 	});
 
 	factory Movie.fromJson(Map<String, dynamic> json) {
@@ -43,6 +48,8 @@ class Movie {
 			genres: json['genres'] ?? [],
 			runtime: json['runtime'] ?? 0,
 			seasons: json['seasons'] ?? [], //List
+			profilePath: json['profile_path'] ?? '',
+			biography: json['biography'] ?? '',
 		);
 	}
 }

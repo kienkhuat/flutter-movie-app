@@ -63,7 +63,11 @@ class _SearchPageState extends State<SearchPage> {
 							),
 						)
 					) : Container(),
-					searchInput.trim().isNotEmpty ? MovieSearchedList(searchInput: searchInput, pageNumber: pageNumber, totalPageNumber: totalPageNumber,) : Container(),
+					searchInput.trim().isNotEmpty ? MovieSearchedList(
+						searchInput: searchInput, 
+						pageNumber: pageNumber, 
+						totalPageNumber: totalPageNumber,
+					) : Container(),
 				],
 			)
 		);

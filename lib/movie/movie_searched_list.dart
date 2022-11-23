@@ -68,7 +68,7 @@ class _MovieSearchedListState extends State<MovieSearchedList> {
 			];
 		}
 		return [
-			...movieListTiles(movieList, context, 'movie'),
+			...movieListTiles(movieList, context),
 		];
 	}
 }

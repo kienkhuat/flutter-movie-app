@@ -40,7 +40,7 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 		_youtubeController.onFullscreenChange = ((isFullScreen) {
 			print('${isFullScreen ? 'Entered' : 'Exited'} Fullscreen.');
 		});
-		getVideoList(widget.movieId, widget.mediaType).then((result) {
+		widget.mediaType == 'movie' || widget.mediaType == 'tv' ? getVideoList(widget.movieId, widget.mediaType).then((result) {
 			List<String> keyList = [];
 			for(int index = 0; index < result.length; index++) {
 				keyList.add(result[index].key);
@@ -51,12 +51,12 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 			setState(() {
 				videoList = result;
 			});
-		});
-		getBackdropImageList(widget.movieId, widget.mediaType).then((result) {
+		}) : (){};
+		widget.mediaType == 'movie' || widget.mediaType == 'tv' ? getBackdropImageList(widget.movieId, widget.mediaType).then((result) {
 			setState(() {
 				backdropImageList = result;
 			});
-		});
+		}) : (){};
 		getCastList(widget.movieId, widget.mediaType).then((result) {
 			setState(() {
 				castList = result;
@@ -92,8 +92,10 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 									fit: StackFit.expand,
 									children: [
 										Container(
-											child: snapshot.data?.posterPath != '' ? CachedNetworkImage(
-												imageUrl: '$posterRootURL${snapshot.data?.posterPath}',
+											child: snapshot.data?.profilePath != '' || snapshot.data?.posterPath != '' ? CachedNetworkImage(
+												imageUrl: widget.mediaType == 'movie' || widget.mediaType == 'tv' 
+												? '$posterRootURL${snapshot.data?.posterPath}'
+												: '$posterRootURL${snapshot.data?.profilePath}',
 												placeholder: ((context, url) => Container(
 													decoration: const BoxDecoration(
 														color: maBlackDarker,
@@ -172,7 +174,7 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 												),
 											],
 										)
-										: Row(
+										: widget.mediaType == 'tv' ? Row(
 											children: [
 												Text(
 													'${widget.mediaType.toUpperCase()} - ',
@@ -189,8 +191,8 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 													)
 												),
 											],
-										),
-										Row(
+										) : Container(),
+										widget.mediaType == 'movie' || widget.mediaType == 'tv' ? Row(
 											children: [
 												const Icon(
 													Icons.star_rounded,
@@ -207,11 +209,11 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 												),
 												const Text('/10', style: TextStyle(color: Colors.grey, fontSize: 16))
 											],
-										)
+										) : Container(),
 									],
 								)
 							),
-							SingleChildScrollView(
+							widget.mediaType == 'movie' || widget.mediaType == 'tv' ?SingleChildScrollView(
 								scrollDirection: Axis.horizontal,
 								child: Container(
 									padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -220,14 +222,14 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 										children: renderGenres(snapshot.data!.genres),
 									)
 								)
-							),
+							) : Container(),
 							Container(
 								margin: const EdgeInsets.only(top: 20),
 								padding: const EdgeInsets.symmetric(horizontal: 15),
 								child: Align(
 									alignment: Alignment.center,
 									child: Text(
-										snapshot.data!.movieOverview,
+										widget.mediaType == 'movie' || widget.mediaType == 'tv' ? snapshot.data!.movieOverview : snapshot.data!.biography,
 										style: const TextStyle(
 											color: maGrey,
 											fontSize: 18,
@@ -236,7 +238,7 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 									)
 								)
 							),
-							Container(
+							widget.mediaType == 'movie' || widget.mediaType == 'tv' ? Container(
 								margin: const EdgeInsets.only(top: 20),
 								padding: const EdgeInsets.only(top: 20),
 								decoration: const BoxDecoration(
@@ -254,7 +256,7 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 										) : Container(),
 									],
 								)
-							),
+							) : Container(margin: const EdgeInsets.only(bottom: 15)),
 						],
 					);
 				},
