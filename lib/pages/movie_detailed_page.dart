@@ -247,7 +247,7 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 								child: Column(
 									children: [
 										castList.isNotEmpty ? renderCasts() : Container(),
-										videoList.isNotEmpty ? renderVideos() : Container(),
+										videoList.isNotEmpty ? renderVideos() : Container(margin: const EdgeInsets.only(top: 20)),
 										backdropImageList.isNotEmpty ? Column (
 											crossAxisAlignment: CrossAxisAlignment.start,
 											children: [
