@@ -14,8 +14,9 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
 	late String searchInput = widget.searchInput;
-	late int pageNumber;
+	late int pageNumber = 1;
 	late int totalPageNumber = 0;
+	late NumberPaginatorController _numberPaginatorController = NumberPaginatorController();
 
 	@override
 	void initState() {
@@ -51,7 +52,9 @@ class _SearchPageState extends State<SearchPage> {
 					searchInput.trim().isNotEmpty && totalPageNumber > 0 ? Container(
 						margin: const EdgeInsets.only(bottom: 10),
 						child: NumberPaginator(
+							controller: _numberPaginatorController,
 							numberPages: totalPageNumber,
+							//initialPage: 1,
 							onPageChange: (int index) {
 								setState(() {
 									pageNumber = index + 1;
@@ -83,7 +86,8 @@ class _SearchPageState extends State<SearchPage> {
 			),
 			child: TextFormField(
 				onFieldSubmitted: (String input) => {
-					setState(() => {searchInput = input}),
+					_numberPaginatorController.navigateToPage(0),
+					setState(() => {searchInput = input, pageNumber = 1}),
 					input.trim().isNotEmpty ? getSearchedTotalPage(searchInput, pageNumber).then((result) {
 						if(mounted) {
 							setState(() {
