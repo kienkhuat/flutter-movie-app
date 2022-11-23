@@ -82,7 +82,13 @@ List<Widget> movieListTiles(List<Movie> movieList, dynamic context) {
 																),
 																const Text('/10', style: TextStyle(color: Colors.grey, fontSize: 16))
 															],
-														) : Container(),
+														) : Text(
+															movieList[i].mediaType.substring(0, 1).toUpperCase() + movieList[i].mediaType.substring(1, movieList[i].mediaType.length),
+															style: const TextStyle(
+																color: maGrey,
+																fontSize: 16,
+															)
+														),
 														Container(
 															margin: const EdgeInsets.only(top: 4),
 															child: Text(
