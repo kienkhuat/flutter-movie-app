@@ -38,6 +38,22 @@ Future<List<Movie>> getPopularTvSeries(int pageNumber) async {
 	}
 }
 
+Future<List<Movie>> getPopularMovies(int pageNumber) async {
+	try {
+		var response = await Dio().get('https://api.themoviedb.org/3/movie/popular?api_key=$apiKey&page=$pageNumber');
+		//print(response.data['results']);
+		//return Movie.fromJsonList(jsonDecode(response.data['results']));
+		List<Movie> movieList = (response.data['results'] as List).map((item) {
+			return Movie.fromJson(item);
+		}).toList();
+		return movieList;
+	} catch (err) {
+		// ignore: avoid_print
+		print(err);
+		throw Exception('Failed to load popular tv series');
+	}
+}
+
 Future<List<Movie>> getTopRatedTvSeries(int pageNumber) async {
 	try {
 		var response = await Dio().get('https://api.themoviedb.org/3/tv/top_rated?api_key=$apiKey&page=$pageNumber');

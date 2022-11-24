@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movieapp/constants/colors.dart';
 import 'package:movieapp/movie/movie_action.dart';
 import 'package:movieapp/movie/movie_carousel.dart';
+import 'package:movieapp/movie/movie_horizontal_grid.dart';
 import 'package:movieapp/pages/search_page.dart';
 import 'package:movieapp/utilities/create_route.dart';
 
@@ -274,18 +275,25 @@ class _HomePageState extends State<HomePage> {
 		if(mediaType == 'movie') {
 			setState(() => {
 				widgetsToRender = [
-					MovieCarousel(listName: 'Trending Movies', movieList: getTrendingMovies('movie'),),
-					MovieCarousel(listName: 'Upcoming Movies', movieList: getUpcomingMovies(),),
-					MovieCarousel(listName: 'Top Rated Movies', movieList: getTopRatedMovies(1),),
+					MovieHorizontalGrid(listName: 'Trending Movies', movieList: getTrendingMovies('movie'), showListTitle: true,),
+					//MovieHorizontalGrid(listName: 'Upcoming Movies', movieList: getUpcomingMovies(), showListTitle: true,),
+					MovieHorizontalGrid(listName: 'Popular Movies', movieList: getPopularMovies(1), showListTitle: true,),
+					MovieHorizontalGrid(listName: 'Top Rated Movies', movieList: getTopRatedMovies(1), showListTitle: true,),
+					//MovieCarousel(listName: 'Trending Movies', movieList: getTrendingMovies('movie'),),
+					//MovieCarousel(listName: 'Upcoming Movies', movieList: getUpcomingMovies(),),
+					// MovieCarousel(listName: 'Top Rated Movies', movieList: getTopRatedMovies(1),),
 				]
 			});
 		}
 		if(mediaType == 'tv') {
 			setState(() => {
 				widgetsToRender = [
-					MovieCarousel(listName: 'Trending TV Series', movieList: getTrendingMovies('tv'),),
-					MovieCarousel(listName: 'Top Rated TV Series', movieList: getTopRatedTvSeries(1),),
-					MovieCarousel(listName: 'Popular TV Series', movieList: getPopularTvSeries(1),),
+					MovieHorizontalGrid(listName: 'Trending TV Series', movieList: getTrendingMovies('tv'), showListTitle: true,),
+					MovieHorizontalGrid(listName: 'Top Rated TV Series', movieList: getTopRatedTvSeries(1), showListTitle: true,),
+					MovieHorizontalGrid(listName: 'Popular TV Series', movieList: getPopularTvSeries(1), showListTitle: true,),
+					//MovieCarousel(listName: 'Trending TV Series', movieList: getTrendingMovies('tv'),),
+					// MovieCarousel(listName: 'Top Rated TV Series', movieList: getTopRatedTvSeries(1),),
+					// MovieCarousel(listName: 'Popular TV Series', movieList: getPopularTvSeries(1),),
 				]
 			});
 		}
