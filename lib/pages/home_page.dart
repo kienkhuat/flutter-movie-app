@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/constants/colors.dart';
+import 'package:movieapp/movie/movie_action.dart';
 import 'package:movieapp/movie/movie_carousel.dart';
 import 'package:movieapp/pages/search_page.dart';
 import 'package:movieapp/utilities/create_route.dart';
@@ -270,18 +271,18 @@ class _HomePageState extends State<HomePage> {
 		if(mediaType == 'movie') {
 			setState(() => {
 				widgetsToRender = [
-					const MovieCarousel(listType: 'trendingMovies', mediaType: 'movie',),
-					const MovieCarousel(listType: 'upcomingMovies', mediaType: 'movie',),
-					const MovieCarousel(listType: 'topRatedMovies', mediaType: 'movie',),
+					MovieCarousel(listName: 'Trending Movies', movieList: getTrendingMovies('movie'),),
+					MovieCarousel(listName: 'Upcoming Movies', movieList: getUpcomingMovies(),),
+					MovieCarousel(listName: 'Top Rated Movies', movieList: getTopRatedMovies(1),),
 				]
 			});
 		}
 		if(mediaType == 'tv') {
 			setState(() => {
 				widgetsToRender = [
-					const MovieCarousel(listType: 'trendingTv', mediaType: 'tv',),
-					const MovieCarousel(listType: 'topRatedTv', mediaType: 'tv',),
-					const MovieCarousel(listType: 'popularTv', mediaType: 'tv',),
+					MovieCarousel(listName: 'Trending TV Series', movieList: getTrendingMovies('tv'),),
+					MovieCarousel(listName: 'Top Rated TV Series', movieList: getTopRatedTvSeries(1),),
+					MovieCarousel(listName: 'Popular TV Series', movieList: getPopularTvSeries(1),),
 				]
 			});
 		}

@@ -2,27 +2,23 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movieapp/constants/colors.dart';
 import 'package:movieapp/model/movie.dart';
-import 'package:movieapp/movie/movie_action.dart';
 import 'package:movieapp/constants/poster_root_url.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:movieapp/pages/movie_detailed_page.dart';
 import 'package:movieapp/utilities/create_route.dart';
 
 class  MovieCarousel extends StatefulWidget {
-	final String listType;
-	final String mediaType;
-	const MovieCarousel({Key? key, required this.listType, required this.mediaType}) : super(key: key);	
+	final String listName;
+	final Future<List<Movie>> movieList;
+	const MovieCarousel({Key? key, required this.listName, required this.movieList}) : super(key: key);	
 	@override
 	State<StatefulWidget> createState() => _MovieCarousel();
 }
 
-class _MovieCarousel extends State<MovieCarousel> {
-	late String listName;
-	
+class _MovieCarousel extends State<MovieCarousel> {	
 	@override
 	void initState() {
 		super.initState();
-		getListName();
   	}
 
 	@override
@@ -30,64 +26,8 @@ class _MovieCarousel extends State<MovieCarousel> {
 		super.dispose();
   	}
 
-
-	void getListName () {
-		switch(widget.listType) {
-			case 'trendingMovies':
-				setState(() {
-					listName = 'Trending Movies';
-				});
-				break;
-			case 'upcomingMovies':
-				setState(() {
-					listName = 'Upcoming Movies';
-				});				
-				break;
-			case 'topRatedMovies':
-				setState(() {
-					listName = 'Top Rated Movies';
-				});				
-				break;
-			case 'trendingTv':
-				setState(() {
-					listName = 'Trending TV Series';
-				});				
-				break;			
-			case 'topRatedTv':
-				setState(() {
-					listName = 'Top Rated TV Series';
-				});				
-				break;			
-			case 'popularTv':
-				setState(() {
-					listName = 'Popular TV Series';
-				});				
-				break;			
-		}
-	}
-
-	dynamic getMovieList (String listType) {
-		switch(listType) {
-			case 'trendingMovies':
-				return getTrendingMovies('movie');
-			case 'upcomingMovies':
-				return getUpcomingMovies();
-			case 'topRatedMovies':
-				return getTopRatedMovies(1);
-			case 'trendingTv':
-				return getTrendingMovies('tv');
-			case 'popularTv':
-				return getPopularTvSeries(1);
-			case 'topRatedTv':
-				return getTopRatedTvSeries(1);
-			default:
-				return false;
-		}
-	}
-
 	@override
 	Widget build(BuildContext context) {
-		getListName();
 		return Container(
 			margin: const EdgeInsets.only(top: 15, bottom: 15),
 			child: Column(
@@ -98,7 +38,7 @@ class _MovieCarousel extends State<MovieCarousel> {
 							Container(
 								padding: const EdgeInsets.all(10),
 								child: Text(
-									listName,
+									widget.listName,
 									style: const TextStyle(
 										color: maGrey,
 										fontSize: 20,
@@ -124,7 +64,7 @@ class _MovieCarousel extends State<MovieCarousel> {
 						height: 436,
 						width: MediaQuery.of(context).size.width,
 						child: FutureBuilder<List<Movie>>(
-							future: getMovieList(widget.listType),
+							future: widget.movieList,
 							builder: (context, snapshot) {
 								if (snapshot.hasData == false) {
 									return const Center(child: CircularProgressIndicator(color: maGrey));
@@ -151,7 +91,7 @@ class _MovieCarousel extends State<MovieCarousel> {
 												onTap: () => {
 													Navigator.of(context).push(createRoute(MovieDetailedPage(
 														movieId: snapshot.data![itemIndex].movieId,
-														mediaType: widget.mediaType,
+														mediaType: snapshot.data![itemIndex].mediaType,
 													)))
 												},
 												child: snapshot.data![itemIndex].posterPath != '' ? CachedNetworkImage(
