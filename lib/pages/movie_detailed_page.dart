@@ -88,7 +88,9 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 					return Container(
 						decoration: BoxDecoration(
 							image: DecorationImage(
-								image: CachedNetworkImageProvider('$posterRootURL${snapshot.data?.posterPath}'),
+								image: snapshot.data!.posterPath != '' || snapshot.data!.profilePath != ''
+								? CachedNetworkImageProvider('$posterRootURL${snapshot.data!.posterPath != '' ? snapshot.data?.posterPath : snapshot.data!.profilePath}')
+								: const AssetImage('assets/images/movie-poster-placeholder.png') as ImageProvider,
 								fit: BoxFit.cover,
             					alignment: Alignment.topCenter,
 							),
@@ -102,11 +104,11 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 											Container(
 												height: 240,
 												width: MediaQuery.of(context).size.width,
-												child: CachedNetworkImage(
-													imageUrl: '$posterRootURL${snapshot.data?.posterPath}',
+												child: snapshot.data!.posterPath != '' || snapshot.data!.profilePath != '' ? CachedNetworkImage(
+													imageUrl: '$posterRootURL${snapshot.data!.posterPath != '' ? snapshot.data?.posterPath : snapshot.data!.profilePath}',
 													fit: BoxFit.contain,
 													alignment: Alignment.topCenter,
-												),
+												) : Image.asset('assets/images/movie-poster-placeholder.png'),
 											),
 											SizedBox(
 												//height: 620,
