@@ -88,6 +88,9 @@ class _HomePageState extends State<HomePage> {
 					{
 						'name': 'Popular',
 					},
+					{
+						'name': 'Top rated',
+					},
 				]
 			},
 			{
@@ -104,10 +107,10 @@ class _HomePageState extends State<HomePage> {
 						'name': 'Trending',
 					},
 					{
-						'name': 'Upcoming',
+						'name': 'Popular',
 					},
 					{
-						'name': 'Popular',
+						'name': 'Top rated',
 					},
 				],
 			}
