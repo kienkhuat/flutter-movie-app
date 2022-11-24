@@ -100,7 +100,7 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 									Stack(
 										children: [
 											Container(
-												height: 250,
+												height: 240,
 												width: MediaQuery.of(context).size.width,
 												child: CachedNetworkImage(
 													imageUrl: '$posterRootURL${snapshot.data?.posterPath}',
@@ -113,9 +113,9 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 												child: Column(
 													mainAxisAlignment: MainAxisAlignment.spaceBetween,
 													children: [
-														Container(height: 250),
+														Container(height: 240),
 														Container(
-															height: 370,
+															height: 380,
 															decoration: BoxDecoration(
 																color: maBlackDarker.withOpacity(0.65),
 																borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
