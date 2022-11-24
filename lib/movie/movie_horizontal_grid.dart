@@ -122,7 +122,14 @@ class _MovieHorizontalGridState extends State<MovieHorizontalGrid> {
 													Container(
 														width: 1000,
 														padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-														color: maBlackDarker.withOpacity(0.8),
+														decoration: BoxDecoration(
+															color: maBlackDarker.withOpacity(0.8),
+															border: Border.all(
+																width: 0, 
+																color: maBlackDarker.withOpacity(0.8),
+																style: BorderStyle.none,
+															),
+														),
 														child: Text(
 															movies[index].title,
 															style: const TextStyle(
@@ -134,7 +141,14 @@ class _MovieHorizontalGridState extends State<MovieHorizontalGrid> {
 													Container(
 														height: 100,
 														width: 1000,
-														color: maBlackDarker.withOpacity(0.8),
+														decoration: BoxDecoration(
+															color: maBlackDarker.withOpacity(0.8),
+															border: Border.all(
+																width: 0, 
+																color: maBlackDarker,
+																style: BorderStyle.none,
+															),
+														),
 														padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
 														child: Column(
 															crossAxisAlignment: CrossAxisAlignment.start,
