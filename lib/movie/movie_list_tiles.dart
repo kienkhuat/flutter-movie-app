@@ -58,7 +58,7 @@ List<Widget> movieListTiles(List<Movie> movieList, dynamic context) {
 														Container(
 															margin: const EdgeInsets.only(bottom: 4),
 															child: Text(
-																truncate(movieList[i].movieTitle, 55), 
+																truncate(movieList[i].title, 55), 
 																style: const TextStyle(
 																	color: maWhite,
 																	fontSize: 20,
@@ -92,7 +92,7 @@ List<Widget> movieListTiles(List<Movie> movieList, dynamic context) {
 														Container(
 															margin: const EdgeInsets.only(top: 4),
 															child: Text(
-																truncate(movieList[i].movieOverview, 80), 
+																truncate(movieList[i].overview, 80), 
 																style: const TextStyle(
 																	color: maWhite,
 																	fontSize: 16,

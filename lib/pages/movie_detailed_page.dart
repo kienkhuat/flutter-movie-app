@@ -86,40 +86,29 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 					}
 					return ListView(
 						children: [
-							SizedBox(
-								height: 620,
-								child: Stack(
-									fit: StackFit.expand,
-									children: [
-										Container(
-											child: snapshot.data?.profilePath != '' || snapshot.data?.posterPath != '' ? CachedNetworkImage(
-												imageUrl: widget.mediaType == 'movie' || widget.mediaType == 'tv' 
-												? '$posterRootURL${snapshot.data?.posterPath}'
-												: '$posterRootURL${snapshot.data?.profilePath}',
-												placeholder: ((context, url) => Container(
-													decoration: const BoxDecoration(
-														color: maBlackDarker,
-													),
-													child: const Center(
-														child: CircularProgressIndicator(color: maGrey,)
-													)
-												)),
-												errorWidget: (context, url, error) => const Center(
-													child: Icon(Icons.error, color: maGrey)
+							Container(
+								color: maBlackDarkest3,
+								child: SizedBox(
+									height: 620,
+									child: Container(
+										child: snapshot.data?.profilePath != '' || snapshot.data?.posterPath != '' ? CachedNetworkImage(
+											imageUrl: widget.mediaType == 'movie' || widget.mediaType == 'tv' 
+											? '$posterRootURL${snapshot.data?.posterPath}'
+											: '$posterRootURL${snapshot.data?.profilePath}',
+											placeholder: ((context, url) => Container(
+												decoration: const BoxDecoration(
+													color: maBlackDarker,
 												),
-												fit: BoxFit.cover,
-											) : Image.asset('assets/images/movie-poster-placeholder.png', fit: BoxFit.fill)
-										),
-										Container(
-											decoration: const BoxDecoration(
-												gradient: LinearGradient(
-													begin: Alignment.topCenter, end: Alignment.bottomCenter,
-													colors: [Colors.transparent, maBlack],
-													stops: [0.9, 1]
+												child: const Center(
+													child: CircularProgressIndicator(color: maGrey,)
 												)
+											)),
+											errorWidget: (context, url, error) => const Center(
+												child: Icon(Icons.error, color: maGrey)
 											),
-										),
-									]
+											fit: BoxFit.cover,
+										) : Image.asset('assets/images/movie-poster-placeholder.png', fit: BoxFit.fill)
+									),
 								)
 							),
 							Container(
@@ -128,7 +117,7 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 								child: Align(
 									alignment: Alignment.centerLeft,
 									child: Text(
-										snapshot.data!.movieTitle,
+										snapshot.data!.title,
 										style: const TextStyle(
 											color: maWhite,
 											fontSize: 28,
@@ -229,7 +218,7 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 								child: Align(
 									alignment: Alignment.center,
 									child: Text(
-										widget.mediaType == 'movie' || widget.mediaType == 'tv' ? snapshot.data!.movieOverview : snapshot.data!.biography,
+										widget.mediaType == 'movie' || widget.mediaType == 'tv' ? snapshot.data!.overview : snapshot.data!.biography,
 										style: const TextStyle(
 											color: maGrey,
 											fontSize: 18,

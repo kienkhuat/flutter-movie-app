@@ -69,6 +69,21 @@ Future<List<Movie>> getTopRatedTvSeries(int pageNumber) async {
 		throw Exception('Failed to load top rated tv series');
 	}
 }
+Future<List<Movie>> getTvSeriesOnTheAir(int pageNumber) async {
+	try {
+		var response = await Dio().get('https://api.themoviedb.org/3/tv/on_the_air?api_key=$apiKey&page=$pageNumber');
+		//print(response.data['results']);
+		//return Movie.fromJsonList(jsonDecode(response.data['results']));
+		List<Movie> movieList = (response.data['results'] as List).map((item) {
+			return Movie.fromJson(item);
+		}).toList();
+		return movieList;
+	} catch (err) {
+		// ignore: avoid_print
+		print(err);
+		throw Exception('Failed to load top rated tv series');
+	}
+}
 
 Future<List<Movie>> getTopRatedMovies(int pageNumber) async {
 	try {
@@ -89,6 +104,22 @@ Future<List<Movie>> getTopRatedMovies(int pageNumber) async {
 Future<List<Movie>> getTrendingMovies(String mediaType) async {
 	try {
 		var response = await Dio().get('https://api.themoviedb.org/3/trending/$mediaType/week?api_key=$apiKey');
+		//print(response.data['results']);
+		//return Movie.fromJsonList(jsonDecode(response.data['results']));
+		List<Movie> movieList = (response.data['results'] as List).map((item) {
+			return Movie.fromJson(item);
+		}).toList();
+		return movieList;
+	} catch (err) {
+		// ignore: avoid_print
+		print(err);
+		throw Exception('Failed to load trending movies');
+	}
+}
+
+Future<List<Movie>> getNowPlayingMovies(String mediaType) async {
+	try {
+		var response = await Dio().get('https://api.themoviedb.org/3/$mediaType/now_playing?api_key=$apiKey');
 		//print(response.data['results']);
 		//return Movie.fromJsonList(jsonDecode(response.data['results']));
 		List<Movie> movieList = (response.data['results'] as List).map((item) {

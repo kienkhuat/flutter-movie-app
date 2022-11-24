@@ -10,8 +10,9 @@ import 'package:movieapp/utilities/create_route.dart';
 class MovieHorizontalGrid extends StatefulWidget {
 	final String listName;
 	final Future<List<Movie>> movieList;
+	final String mediaType;
 	final bool showListTitle;
-	const MovieHorizontalGrid({Key? key, required this.listName, required this.movieList, required this.showListTitle}) : super(key: key);
+	const MovieHorizontalGrid({Key? key, required this.listName, required this.movieList, required this.showListTitle, required this.mediaType}) : super(key: key);
 
 	@override
 	State<MovieHorizontalGrid> createState() => _MovieHorizontalGridState();
@@ -24,7 +25,7 @@ class _MovieHorizontalGridState extends State<MovieHorizontalGrid> {
 			mainAxisAlignment: MainAxisAlignment.spaceBetween,
 			children: [
 				Container(
-					padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+					padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
 					child: Text(
 						widget.listName,
 						style: const TextStyle(
@@ -36,7 +37,7 @@ class _MovieHorizontalGridState extends State<MovieHorizontalGrid> {
 				GestureDetector(
 					onTap: () {print('See All Tapped');}, 
 					child: Container(
-						padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+						padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
 						child: const Text(
 							'See all',
 							style: TextStyle(
@@ -90,7 +91,7 @@ class _MovieHorizontalGridState extends State<MovieHorizontalGrid> {
 					onTap:() {
 						Navigator.of(context).push(createRoute(MovieDetailedPage(
 							movieId: movies[index].movieId,
-							mediaType: movies[index].mediaType != '' ? movies[index].mediaType : 'movie',
+							mediaType: widget.mediaType,
 						)));
 					},
 					child: ClipRRect(
@@ -119,11 +120,11 @@ class _MovieHorizontalGridState extends State<MovieHorizontalGrid> {
 											Column(
 												children: [
 													Container(
-														width: double.infinity,
+														width: 1000,
 														padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
 														color: maBlackDarker.withOpacity(0.8),
 														child: Text(
-															movies[index].movieTitle,
+															movies[index].title,
 															style: const TextStyle(
 																color: maWhite,
 																fontWeight: FontWeight.bold,
@@ -132,7 +133,7 @@ class _MovieHorizontalGridState extends State<MovieHorizontalGrid> {
 													),
 													Container(
 														height: 100,
-														width: double.infinity,
+														width: 1000,
 														color: maBlackDarker.withOpacity(0.8),
 														padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
 														child: Column(
@@ -171,7 +172,7 @@ class _MovieHorizontalGridState extends State<MovieHorizontalGrid> {
 																	],
 																),
 																AutoSizeText(
-																	movies[index].movieOverview,
+																	movies[index].overview,
 																	style: const TextStyle(
 																		color: maGreyDarker,
 																	),

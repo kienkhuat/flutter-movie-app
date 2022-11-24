@@ -1,8 +1,8 @@
 class Movie {
-	final String movieTitle;
+	final String title;
 	final String backdropPath;
 	final int movieId;
-	final String movieOverview;
+	final String overview;
 	final String posterPath;
 	final String mediaType;
 	final String releaseDate;
@@ -18,10 +18,10 @@ class Movie {
 	late String error;
 
 	Movie({
-		required this.movieTitle,
+		required this.title,
 		required this.backdropPath,
 		required this.movieId,
-		required this.movieOverview,
+		required this.overview,
 		required this.posterPath,
 		required this.mediaType,
 		required this.releaseDate,
@@ -38,10 +38,10 @@ class Movie {
 		return Movie(
 			backdropPath: json['backdrop_path'] ?? '',
         	movieId: json['id'],
-        	movieOverview: json['overview'] ?? '',
+        	overview: json['overview'] ?? '',
 			posterPath: json['poster_path'] ?? '',
 			releaseDate: json['release_date'] ?? '',
-			movieTitle: json['title']?.isEmpty ?? true ? json['name'] : json['title'],
+			title: json['title']?.isEmpty ?? true ? json['name'] : json['title'],
 			voteCount: json['vote_count'] ?? 0, //double
 			mediaType: json['media_type'] ?? '', //String
 			voteAverage: json['vote_average'] ?? 0,//double
