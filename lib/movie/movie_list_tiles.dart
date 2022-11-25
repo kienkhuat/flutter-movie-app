@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movieapp/constants/colors.dart';
@@ -22,89 +24,102 @@ List<Widget> movieListTiles(List<Movie> movieList, dynamic context) {
 						decoration: BoxDecoration(
 							color: maBlackDarker,
 							borderRadius: BorderRadius.circular(8),
+							image: DecorationImage(
+								image: movieList[i].profilePath != '' || movieList[i].posterPath != '' 
+								? CachedNetworkImageProvider(
+									movieList[i].mediaType == 'movie' || movieList[i].mediaType == 'tv' 
+									? '$posterRootURL${movieList[i].posterPath}'
+									: '$posterRootURL${movieList[i].profilePath}',
+								) : const AssetImage('assets/images/movie-poster-placeholder.png') as ImageProvider,
+								fit: BoxFit.cover,
+							),
 						),
 						margin: const EdgeInsets.only(bottom: 20),
 						child: ClipRRect(
 							borderRadius: BorderRadius.circular(8),
 							child: SizedBox(
 								height: 240,
-								child: Row(
-									children: [
-										SizedBox(
-											height: 240,
-											child: Container(
-												decoration: const BoxDecoration(color: maBlackDarkest),
-												child: movieList[i].profilePath != '' || movieList[i].posterPath != '' ? CachedNetworkImage(
-													imageUrl: movieList[i].mediaType == 'movie' || movieList[i].mediaType == 'tv' 
-													? '$posterRootURL${movieList[i].posterPath}'
-													: '$posterRootURL${movieList[i].profilePath}',
-													placeholder: ((context, url) => const Center(
-														child: CircularProgressIndicator(color: maGrey,)
-													)),
-													errorWidget: (context, url, error) => const Center(
-														child: Icon(Icons.error, color: maGrey)
-													),
-													fit: BoxFit.fitHeight,
-													width: 160,
-												) : Image.asset('assets/images/movie-poster-placeholder.png')
-											)
-										),
-										Flexible(
-											child: Container(
-												padding: const EdgeInsets.all(16),
-												child: Column(
-													crossAxisAlignment: CrossAxisAlignment.start,
-													children: [
-														Container(
-															margin: const EdgeInsets.only(bottom: 4),
-															child: Text(
-																truncate(movieList[i].title, 55), 
-																style: const TextStyle(
-																	color: maWhite,
-																	fontSize: 20,
-																),
-															)
+								child: BackdropFilter(
+									filter: ImageFilter.blur(sigmaX: 50, sigmaY: 50),
+									child: Row(
+										children: [
+											SizedBox(
+												height: 240,
+												child: Container(
+													decoration: const BoxDecoration(color: maBlackDarkest),
+													child: movieList[i].profilePath != '' || movieList[i].posterPath != '' ? CachedNetworkImage(
+														imageUrl: movieList[i].mediaType == 'movie' || movieList[i].mediaType == 'tv' 
+														? '$posterRootURL${movieList[i].posterPath}'
+														: '$posterRootURL${movieList[i].profilePath}',
+														placeholder: ((context, url) => const Center(
+															child: CircularProgressIndicator(color: maGrey,)
+														)),
+														errorWidget: (context, url, error) => const Center(
+															child: Icon(Icons.error, color: maGrey)
 														),
-														movieList[i].mediaType == 'movie' || movieList[i].mediaType == 'tv' ? Row(
-															children: [
-																const Icon(
-																	Icons.star_rounded,
-																	color: Colors.orange,
-																),
-																Text(
-																	movieList[i].voteAverage % 1 == 0
-																	? movieList[i].voteAverage.toInt().toString()
-																	: movieList[i].voteAverage.toStringAsFixed(1),
+														fit: BoxFit.fitHeight,
+														width: 160,
+													) : Image.asset('assets/images/movie-poster-placeholder.png')
+												)
+											),
+											Flexible(
+												child: Container(
+													padding: const EdgeInsets.all(16),
+													color: maBlackDarkest3.withOpacity(0.7),
+													child: Column(
+														crossAxisAlignment: CrossAxisAlignment.start,
+														children: [
+															Container(
+																margin: const EdgeInsets.only(bottom: 4),
+																child: Text(
+																	truncate(movieList[i].title, 55), 
+																	style: const TextStyle(
+																		color: maWhite,
+																		fontSize: 20,
+																	),
+																)
+															),
+															movieList[i].mediaType == 'movie' || movieList[i].mediaType == 'tv' ? Row(
+																children: [
+																	const Icon(
+																		Icons.star_rounded,
+																		color: Colors.orange,
+																	),
+																	Text(
+																		movieList[i].voteAverage % 1 == 0
+																		? movieList[i].voteAverage.toInt().toString()
+																		: movieList[i].voteAverage.toStringAsFixed(1),
+																		style: const TextStyle(
+																			color: maWhite,
+																			fontSize: 16,
+																		)
+																	),
+																	const Text('/10', style: TextStyle(color: Colors.grey, fontSize: 16))
+																],
+															) : Text(
+																movieList[i].mediaType.substring(0, 1).toUpperCase() + movieList[i].mediaType.substring(1, movieList[i].mediaType.length),
+																style: const TextStyle(
+																	color: maGrey,
+																	fontSize: 16,
+																)
+															),
+															Container(
+																margin: const EdgeInsets.only(top: 4),
+																child: Text(
+																	truncate(movieList[i].overview, 80), 
 																	style: const TextStyle(
 																		color: maWhite,
 																		fontSize: 16,
-																	)
-																),
-																const Text('/10', style: TextStyle(color: Colors.grey, fontSize: 16))
-															],
-														) : Text(
-															movieList[i].mediaType.substring(0, 1).toUpperCase() + movieList[i].mediaType.substring(1, movieList[i].mediaType.length),
-															style: const TextStyle(
-																color: maGrey,
-																fontSize: 16,
-															)
-														),
-														Container(
-															margin: const EdgeInsets.only(top: 4),
-															child: Text(
-																truncate(movieList[i].overview, 80), 
-																style: const TextStyle(
-																	color: maWhite,
-																	fontSize: 16,
-																),
-																//overflow: TextOverflow.ellipsis,
-															)
-														),
-													],
+																	),
+																	//overflow: TextOverflow.ellipsis,
+																)
+															),
+														],
+													)
 												)
 											)
-										)
-									],
+										],
+									)
 								),
 							)
 						)
