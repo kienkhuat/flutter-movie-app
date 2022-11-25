@@ -11,6 +11,8 @@ import 'package:movieapp/model/movie_image.dart';
 import 'package:movieapp/model/movie_video.dart';
 import 'package:movieapp/movie/movie_action.dart';
 import 'package:movieapp/constants/poster_root_url.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class MovieDetailedPage extends StatefulWidget {
@@ -100,17 +102,7 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 							children: [
 								Stack(
 									children: [
-										// Container(
-										// 	height: 400,
-										// 	width: MediaQuery.of(context).size.width,
-										// 	child: snapshot.data!.posterPath != '' || snapshot.data!.profilePath != '' ? CachedNetworkImage(
-										// 		imageUrl: '$posterRootURL${snapshot.data!.posterPath != '' ? snapshot.data?.posterPath : snapshot.data!.profilePath}',
-										// 		fit: BoxFit.contain,
-										// 		alignment: Alignment.topCenter,
-										// 	) : Image.asset('assets/images/movie-poster-placeholder.png'),
-										// ),
 										SizedBox(
-											//height: 620,
 											child: Column(
 												mainAxisAlignment: MainAxisAlignment.spaceBetween,
 												children: [
@@ -119,18 +111,15 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 														child: BackdropFilter(
 															filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
 															child: Container(
-																//height: 380,
-																//width: 1000,
 																decoration: BoxDecoration(
 																	color: maBlackDarker.withOpacity(0.65),
-																	borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+																	borderRadius: const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
 																),
 																child: Column(
 																	crossAxisAlignment: CrossAxisAlignment.start,
 																	children: [
 																		Container(
 																			padding: const EdgeInsets.only(top: 20, left: 20),
-																			//height: 200,
 																			child: Row(
 																				children: [
 																					ClipRRect(
@@ -150,7 +139,6 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 																						children: [
 																							Container(
 																								margin: const EdgeInsets.only(left: 10),
-																								//padding: const EdgeInsets.symmetric(horizontal: 15),
 																								width: MediaQuery.of(context).size.width - 155,
 																								child: AutoSizeText(
 																									snapshot.data!.title,
@@ -162,7 +150,6 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 																								)
 																							),
 																							Container(
-																								//padding: const EdgeInsets.symmetric(horizontal: 15),
 																								margin: const EdgeInsets.only(top: 8, left: 10),
 																								width: MediaQuery.of(context).size.width - 155,
 																								child: Column(
@@ -241,12 +228,9 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 																										) : Container(),
 																										widget.mediaType == 'movie' || widget.mediaType == 'tv' ? SingleChildScrollView(
 																											scrollDirection: Axis.horizontal,
-																											child: Container(
-																												padding: const EdgeInsets.symmetric(horizontal: 0),
-																												child: Row(
-																													mainAxisAlignment: MainAxisAlignment.start,
-																													children: renderGenres(snapshot.data!.genres),
-																												)
+																											child: Row(
+																												mainAxisAlignment: MainAxisAlignment.start,
+																												children: renderGenres(snapshot.data!.genres),
 																											)
 																										) : Container(),
 																									],
@@ -276,7 +260,7 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 																				padding: const EdgeInsets.only(top: 5),
 																				child: Column(
 																					children: [
-																						castList.isNotEmpty ? renderCasts() : Container(),
+																						castList.isNotEmpty ? renderCast() : Container(),
 																						videoList.isNotEmpty ? renderVideos() : Container(margin: const EdgeInsets.only(top: 20)),
 																						backdropImageList.isNotEmpty ? Column (
 																							crossAxisAlignment: CrossAxisAlignment.start,
@@ -321,13 +305,6 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 					decoration: BoxDecoration(
 						color: maBlackDarkest3.withOpacity(0.6),
 						borderRadius: BorderRadius.circular(15),
-						// boxShadow: const [
-						// 	BoxShadow(
-						// 		color: Colors.black,
-						// 		offset: Offset(0.0, 1.0), //(x,y)
-						// 		blurRadius: 6.0,
-						// 	),
-						// ],
 					),
 					child: Column(
 						children: [
@@ -376,7 +353,7 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 		);
 	}
 
-	Widget renderCasts () {
+	Widget renderCast () {
 		int limitLength = 15;
 		return Column(
 			crossAxisAlignment: CrossAxisAlignment.start,
@@ -384,7 +361,7 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 				Container(
 					padding: const EdgeInsets.all(10),
 					child: const Text(
-						'Casts',
+						'Cast',
 						style: TextStyle(
 							color: maGreyDarker,
 							fontSize: 16,
@@ -426,17 +403,16 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 		);	
 	}
 
-	//TODO: change to Flutter photo view
 	Widget renderBackdropImages () {
 		int limitLength = 15;
 		return Container(
 			//color: maBlackDarkest,
-			margin: const EdgeInsets.only(top: 15),
+			margin: const EdgeInsets.only(top: 15, bottom: 30),
 			child: Column(
 				crossAxisAlignment: CrossAxisAlignment.start,
 				children: [
 					Container(
-						padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+						padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
 						child: const Text(
 							'Images',
 							style: TextStyle(
@@ -451,22 +427,24 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 						options: CarouselOptions(
 							initialPage: 0,
 							scrollDirection: Axis.horizontal,
-							//enableInfiniteScroll: false,
-							//pageSnapping: false,
 							height: 190,
+							padEnds: true
 						),
 						itemBuilder: (context, index, realIndex) {
 							return Container(
-								margin: const EdgeInsets.symmetric(horizontal: 15),
-								child: CachedNetworkImage(
-									imageUrl: '$posterRootURL${backdropImageList[index].filePath}',
-									placeholder: ((context, url) => const Center(
-										child: CircularProgressIndicator(color: maGrey,)
-									)),
-									errorWidget: (context, url, error) => const Center(
-										child: Icon(Icons.error, color: maGrey)
-									),
-									fit: BoxFit.contain,
+								margin: const EdgeInsets.symmetric(horizontal: 5),
+								child: ClipRRect(
+									borderRadius: BorderRadius.circular(15),
+									child: CachedNetworkImage(
+										imageUrl: '$posterRootURL${backdropImageList[index].filePath}',
+										placeholder: ((context, url) => const Center(
+											child: CircularProgressIndicator(color: maGrey,)
+										)),
+										errorWidget: (context, url, error) => const Center(
+											child: Icon(Icons.error, color: maGrey)
+										),
+										fit: BoxFit.fill,
+									)
 								)
 							);
 						},
@@ -495,7 +473,6 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 				Container(
 					margin: const EdgeInsets.only(top: 10),
 					padding: const EdgeInsets.symmetric(horizontal: 10),
-					
 					child: SizedBox(
 						child: YoutubePlayerScaffold(
 							controller: _youtubeController,
