@@ -66,7 +66,7 @@ List<Widget> movieListTiles(List<Movie> movieList, dynamic context) {
 												child: Container(
 													padding: const EdgeInsets.all(16),
 													width: 300,
-													color: maBlackDarkest3.withOpacity(0.7),
+													color: maBlackDarkest3.withOpacity(0.85),
 													child: Column(
 														crossAxisAlignment: CrossAxisAlignment.start,
 														children: [

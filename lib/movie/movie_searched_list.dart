@@ -53,7 +53,8 @@ class _MovieSearchedListState extends State<MovieSearchedList> {
 	List<Widget> _buildSearchedList (List<Movie> movieList, dynamic context) {
 		if(movieList.isEmpty == true) {
 			return [
-				SizedBox(
+				Container(
+					margin: const EdgeInsets.only(top: 15),
 					width: MediaQuery.of(context).size.width,
 					child: const Center(
 						child: Text(

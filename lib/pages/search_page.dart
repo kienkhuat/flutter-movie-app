@@ -81,7 +81,7 @@ class _SearchPageState extends State<SearchPage> {
 			margin: const EdgeInsets.only(top: 30, bottom: 10),
 			padding: const EdgeInsets.symmetric(horizontal: 10),
 			decoration: BoxDecoration(
-				border: Border.all(color: maBlackDarkest2, width: 2, style: BorderStyle.solid),
+				border: Border.all(color: maBlack, width: 2, style: BorderStyle.solid),
 				borderRadius: BorderRadius.circular(20),
 			),
 			child: TextFormField(

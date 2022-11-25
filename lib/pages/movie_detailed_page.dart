@@ -355,51 +355,54 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 
 	Widget renderCast () {
 		int limitLength = 15;
-		return Column(
-			crossAxisAlignment: CrossAxisAlignment.start,
-			children: [
-				Container(
-					padding: const EdgeInsets.all(10),
-					child: const Text(
-						'Cast',
-						style: TextStyle(
-							color: maGreyDarker,
-							fontSize: 16,
-							fontWeight: FontWeight.bold,
-						),
-					)
-				),
-				SingleChildScrollView(
-					scrollDirection: Axis.horizontal,
-					child: Row(
-						children: [
-							Container(margin: const EdgeInsets.only(left: 7)),
-							...castList.sublist(0, castList.length > limitLength ? limitLength : castList.length).map((item) {
-								return castCard(item);
-							}).toList(),
-							Container(margin: const EdgeInsets.only(right: 7)),
-							InkWell(
-								borderRadius: BorderRadius.circular(20),
-								onTap:(){print('View More');},
-								child: Container(
-									width: 135,
-									height: 320,
-									margin: const EdgeInsets.only(right: 10),
-									child: Center(
-										child: Row(
-											mainAxisAlignment: MainAxisAlignment.center,
-											children: const [
-												Text('View More', style: TextStyle(color: maGrey, fontWeight: FontWeight.bold, fontSize: 16)),
-												Icon(Icons.arrow_right_alt, color: maGrey, size: 24),
-											],
-										),
-									),
-								)
+		return Container(
+			width: MediaQuery.of(context).size.width,
+			child: Column(
+				crossAxisAlignment: CrossAxisAlignment.start,
+				children: [
+					Container(
+						padding: const EdgeInsets.all(10),
+						child: const Text(
+							'Cast',
+							style: TextStyle(
+								color: maGreyDarker,
+								fontSize: 16,
+								fontWeight: FontWeight.bold,
 							),
-						],
+						)
+					),
+					SingleChildScrollView(
+						scrollDirection: Axis.horizontal,
+						child: Row(
+							children: [
+								Container(margin: const EdgeInsets.only(left: 7)),
+								...castList.sublist(0, castList.length > limitLength ? limitLength : castList.length).map((item) {
+									return castCard(item);
+								}).toList(),
+								Container(margin: const EdgeInsets.only(right: 7)),
+								InkWell(
+									borderRadius: BorderRadius.circular(20),
+									onTap:(){print('View More');},
+									child: Container(
+										width: 135,
+										height: 320,
+										margin: const EdgeInsets.only(right: 10),
+										child: Center(
+											child: Row(
+												mainAxisAlignment: MainAxisAlignment.center,
+												children: const [
+													Text('View More', style: TextStyle(color: maGrey, fontWeight: FontWeight.bold, fontSize: 16)),
+													Icon(Icons.arrow_right_alt, color: maGrey, size: 24),
+												],
+											),
+										),
+									)
+								),
+							],
+						)
 					)
-				)
-			],
+				],
+			)
 		);	
 	}
 
@@ -497,7 +500,7 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 					padding: const EdgeInsets.all(16),
 					decoration: BoxDecoration(
 						borderRadius: BorderRadius.circular(20),
-						color: maBlackDarkest3,
+						color: maBlackDarkest3.withOpacity(0.6),
 					),
 					child: Text(
 						genres[i]['name'],
