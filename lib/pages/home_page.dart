@@ -213,7 +213,7 @@ class _HomePageState extends State<HomePage> {
 							padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
 							margin: const EdgeInsets.all(0),
 							decoration:const BoxDecoration(
-								color: maBlackDarkest,
+								color: maBlackDarkest3,
 							),
 							child: Row(
 								mainAxisAlignment: MainAxisAlignment.spaceBetween,

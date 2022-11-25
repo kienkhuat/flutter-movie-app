@@ -42,7 +42,7 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 			),
 		);
 		_youtubeController.onFullscreenChange = ((isFullScreen) {
-			print('${isFullScreen ? 'Entered' : 'Exited'} Fullscreen.');
+			//print('${isFullScreen ? 'Entered' : 'Exited'} Fullscreen.');
 		});
 		widget.mediaType == 'movie' || widget.mediaType == 'tv' ? getVideoList(widget.movieId, widget.mediaType).then((result) {
 			List<String> keyList = [];
@@ -446,7 +446,7 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 										errorWidget: (context, url, error) => const Center(
 											child: Icon(Icons.error, color: maGrey)
 										),
-										fit: BoxFit.fill,
+										fit: BoxFit.cover,
 									)
 								)
 							);
