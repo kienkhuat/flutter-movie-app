@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:movieapp/constants/colors.dart';
+import 'package:movieapp/model/movie.dart';
 import 'package:movieapp/model/movie_cast.dart';
 import 'package:movieapp/model/movie_image.dart';
 import 'package:movieapp/model/movie_video.dart';
@@ -95,153 +96,175 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
             					alignment: Alignment.topCenter,
 							),
 						),
-						child: BackdropFilter(
-							filter: ImageFilter.blur(sigmaX: 30, sigmaY: 50),
+						child: Container(
 							child: ListView(
 								children: [
 									Stack(
 										children: [
-											Container(
-												height: 400,
-												width: MediaQuery.of(context).size.width,
-												child: snapshot.data!.posterPath != '' || snapshot.data!.profilePath != '' ? CachedNetworkImage(
-													imageUrl: '$posterRootURL${snapshot.data!.posterPath != '' ? snapshot.data?.posterPath : snapshot.data!.profilePath}',
-													fit: BoxFit.contain,
-													alignment: Alignment.topCenter,
-												) : Image.asset('assets/images/movie-poster-placeholder.png'),
-											),
+											// Container(
+											// 	height: 400,
+											// 	width: MediaQuery.of(context).size.width,
+											// 	child: snapshot.data!.posterPath != '' || snapshot.data!.profilePath != '' ? CachedNetworkImage(
+											// 		imageUrl: '$posterRootURL${snapshot.data!.posterPath != '' ? snapshot.data?.posterPath : snapshot.data!.profilePath}',
+											// 		fit: BoxFit.contain,
+											// 		alignment: Alignment.topCenter,
+											// 	) : Image.asset('assets/images/movie-poster-placeholder.png'),
+											// ),
 											SizedBox(
 												//height: 620,
 												child: Column(
 													mainAxisAlignment: MainAxisAlignment.spaceBetween,
 													children: [
 														Container(height: 400),
-														Container(
-															height: 380,
-															decoration: BoxDecoration(
-																color: maBlackDarker.withOpacity(0.65),
-																borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-															),
-															child: Column(
-																crossAxisAlignment: CrossAxisAlignment.start,
-																children: [
-																	Container(
-																		margin: const EdgeInsets.only(top: 20),
-																		padding: const EdgeInsets.symmetric(horizontal: 15),
-																		child: Align(
-																			alignment: Alignment.centerLeft,
-																			child: Text(
-																				snapshot.data!.title,
-																				style: const TextStyle(
-																					color: maWhite,
-																					fontSize: 28,
-																				),
-																			)
-																		)
+														ClipRRect(
+															child: BackdropFilter(
+																filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
+																child: Container(
+																	//height: 380,
+																	width: 1000,
+																	decoration: BoxDecoration(
+																		color: maBlackDarker.withOpacity(0.65),
+																		borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
 																	),
-																	Container(
-																		padding: const EdgeInsets.symmetric(horizontal: 15),
-																		margin: const EdgeInsets.only(top: 8),
-																		child: Row(
-																			mainAxisAlignment: MainAxisAlignment.spaceBetween,
-																			children: [
-																				widget.mediaType == 'movie'
-																				? Row(
+																	child: Column(
+																		crossAxisAlignment: CrossAxisAlignment.start,
+																		children: [
+																			Container(
+																				margin: const EdgeInsets.only(top: 20),
+																				padding: const EdgeInsets.symmetric(horizontal: 15),
+																				child: Align(
+																					alignment: Alignment.centerLeft,
+																					child: Text(
+																						snapshot.data!.title,
+																						style: const TextStyle(
+																							color: maWhite,
+																							fontSize: 28,
+																						),
+																					)
+																				)
+																			),
+																			Container(
+																				padding: const EdgeInsets.symmetric(horizontal: 15),
+																				margin: const EdgeInsets.only(top: 8),
+																				child: Row(
+																					mainAxisAlignment: MainAxisAlignment.spaceBetween,
 																					children: [
-																						Text(
-																							widget.mediaType.substring(0, 1).toUpperCase() + widget.mediaType.substring(1, widget.mediaType.length),
-																							style: const TextStyle(
-																								color: Colors.grey,
-																								fontSize: 16,
-																							)
-																						),
-																						snapshot.data!.releaseDate != '' ? Text(
-																							' - ${snapshot.data!.releaseDate.substring(0, 4)} - ',
-																							style: const TextStyle(
-																								color: Colors.grey,
-																								fontSize: 16,
-																							)
-																						) : const Text(
-																							' - ',
-																							style: TextStyle(
-																								color: Colors.grey,
-																								fontSize: 16,
-																							)
-																						),
-																						Text(
-																							'${snapshot.data!.runtime.toString()} minutes',
-																							style: const TextStyle(
-																								color: Colors.grey,
-																								fontSize: 16,
-																							)
-																						),
+																						widget.mediaType == 'movie'
+																						? Row(
+																							children: [
+																								Text(
+																									widget.mediaType.substring(0, 1).toUpperCase() + widget.mediaType.substring(1, widget.mediaType.length),
+																									style: const TextStyle(
+																										color: Colors.grey,
+																										fontSize: 16,
+																									)
+																								),
+																								snapshot.data!.releaseDate != '' ? Text(
+																									' - ${snapshot.data!.releaseDate.substring(0, 4)} - ',
+																									style: const TextStyle(
+																										color: Colors.grey,
+																										fontSize: 16,
+																									)
+																								) : const Text(
+																									' - ',
+																									style: TextStyle(
+																										color: Colors.grey,
+																										fontSize: 16,
+																									)
+																								),
+																								Text(
+																									'${snapshot.data!.runtime.toString()} minutes',
+																									style: const TextStyle(
+																										color: Colors.grey,
+																										fontSize: 16,
+																									)
+																								),
+																							],
+																						)
+																						: widget.mediaType == 'tv' ? Row(
+																							children: [
+																								Text(
+																									'${widget.mediaType.toUpperCase()} - ',
+																									style: const TextStyle(
+																										color: Colors.grey,
+																										fontSize: 16,
+																									)
+																								),
+																								Text(
+																									'${snapshot.data!.seasons.length} ${snapshot.data!.seasons.length > 1 ? 'seasons' : 'season'}',
+																									style: const TextStyle(
+																										color: Colors.grey,
+																										fontSize: 16,
+																									)
+																								),
+																							],
+																						) : Container(),
+																						widget.mediaType == 'movie' || widget.mediaType == 'tv' ? Row(
+																							children: [
+																								const Icon(
+																									Icons.star_rounded,
+																									color: Colors.orange,
+																								),
+																								Text(
+																									snapshot.data!.voteAverage % 1 == 0
+																									? snapshot.data!.voteAverage.toInt().toString()
+																									: snapshot.data!.voteAverage.toStringAsFixed(1),
+																									style: const TextStyle(
+																										color: maWhite,
+																										fontSize: 16,
+																									)
+																								),
+																								const Text('/10', style: TextStyle(color: Colors.grey, fontSize: 16))
+																							],
+																						) : Container(),
 																					],
 																				)
-																				: widget.mediaType == 'tv' ? Row(
-																					children: [
-																						Text(
-																							'${widget.mediaType.toUpperCase()} - ',
-																							style: const TextStyle(
-																								color: Colors.grey,
-																								fontSize: 16,
-																							)
+																			),
+																			widget.mediaType == 'movie' || widget.mediaType == 'tv' ? SingleChildScrollView(
+																				scrollDirection: Axis.horizontal,
+																				child: Container(
+																					padding: const EdgeInsets.symmetric(horizontal: 15),
+																					child: Row(
+																						mainAxisAlignment: MainAxisAlignment.start,
+																						children: renderGenres(snapshot.data!.genres),
+																					)
+																				)
+																			) : Container(),
+																			Container(
+																				height: 170,
+																				margin: const EdgeInsets.only(top: 20),
+																				padding: const EdgeInsets.only(left: 15, right: 15),
+																				child: SingleChildScrollView(
+																					child: Text(
+																						widget.mediaType == 'movie' || widget.mediaType == 'tv' ? snapshot.data!.overview : snapshot.data!.biography,
+																						style: const TextStyle(
+																							color: maGrey,
+																							fontSize: 18,
+																							height: 1.6,
 																						),
-																						Text(
-																							'${snapshot.data!.seasons.length} ${snapshot.data!.seasons.length > 1 ? 'seasons' : 'season'}',
-																							style: const TextStyle(
-																								color: Colors.grey,
-																								fontSize: 16,
-																							)
-																						),
-																					],
-																				) : Container(),
-																				widget.mediaType == 'movie' || widget.mediaType == 'tv' ? Row(
-																					children: [
-																						const Icon(
-																							Icons.star_rounded,
-																							color: Colors.orange,
-																						),
-																						Text(
-																							snapshot.data!.voteAverage % 1 == 0
-																							? snapshot.data!.voteAverage.toInt().toString()
-																							: snapshot.data!.voteAverage.toStringAsFixed(1),
-																							style: const TextStyle(
-																								color: maWhite,
-																								fontSize: 16,
-																							)
-																						),
-																						const Text('/10', style: TextStyle(color: Colors.grey, fontSize: 16))
-																					],
-																				) : Container(),
-																			],
-																		)
-																	),
-																	widget.mediaType == 'movie' || widget.mediaType == 'tv' ? SingleChildScrollView(
-																		scrollDirection: Axis.horizontal,
-																		child: Container(
-																			padding: const EdgeInsets.symmetric(horizontal: 15),
-																			child: Row(
-																				mainAxisAlignment: MainAxisAlignment.start,
-																				children: renderGenres(snapshot.data!.genres),
-																			)
-																		)
-																	) : Container(),
-																	Container(
-																		height: 170,
-																		margin: const EdgeInsets.only(top: 20),
-																		padding: const EdgeInsets.only(left: 15, right: 15),
-																		child: SingleChildScrollView(
-																			child: Text(
-																				widget.mediaType == 'movie' || widget.mediaType == 'tv' ? snapshot.data!.overview : snapshot.data!.biography,
-																				style: const TextStyle(
-																					color: maGrey,
-																					fontSize: 18,
-																					height: 1.6,
-																				),
-																			)
-																		)
+																					)
+																				)
+																			),
+																			Container(
+																				child: widget.mediaType == 'movie' || widget.mediaType == 'tv' ? Container(
+																					padding: const EdgeInsets.only(top: 5),
+																					child: Column(
+																						children: [
+																							castList.isNotEmpty ? renderCasts() : Container(),
+																							videoList.isNotEmpty ? renderVideos() : Container(margin: const EdgeInsets.only(top: 20)),
+																							backdropImageList.isNotEmpty ? Column (
+																								crossAxisAlignment: CrossAxisAlignment.start,
+																								children: [
+																									renderBackdropImages()
+																								],
+																							) : Container(),
+																						],
+																					)
+																				) : Container(margin: const EdgeInsets.only(bottom: 15)),
+																			),
+																		],
 																	)
-																],
+																)
 															)
 														),
 													],
@@ -249,24 +272,6 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 											),
 										],
 									),
-									widget.mediaType == 'movie' || widget.mediaType == 'tv' ? Container(
-										padding: const EdgeInsets.only(top: 5),
-										decoration: BoxDecoration(
-											color: maBlackDarker.withOpacity(0.65),
-										),
-										child: Column(
-											children: [
-												castList.isNotEmpty ? renderCasts() : Container(),
-												videoList.isNotEmpty ? renderVideos() : Container(margin: const EdgeInsets.only(top: 20)),
-												backdropImageList.isNotEmpty ? Column (
-													crossAxisAlignment: CrossAxisAlignment.start,
-													children: [
-														renderBackdropImages()
-													],
-												) : Container(),
-											],
-										)
-									) : Container(margin: const EdgeInsets.only(bottom: 15)),
 								],
 							)
 						)
@@ -276,7 +281,7 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 		);
 	}
 
-	Widget castCard(dynamic cast) {
+	Widget castCard(MovieCast cast) {
 		return Container(
 			margin: const EdgeInsets.symmetric(horizontal: 4,),
 			child: ClipRRect(
@@ -286,15 +291,15 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 					height: 320,
 					margin: const EdgeInsets.only(bottom: 6.0,),
 					decoration: BoxDecoration(
-						color: maBlackDarkest3,
+						color: maBlackDarkest3.withOpacity(0.6),
 						borderRadius: BorderRadius.circular(15),
-						boxShadow: const [
-							BoxShadow(
-								color: Colors.black,
-								offset: Offset(0.0, 1.0), //(x,y)
-								blurRadius: 6.0,
-							),
-						],
+						// boxShadow: const [
+						// 	BoxShadow(
+						// 		color: Colors.black,
+						// 		offset: Offset(0.0, 1.0), //(x,y)
+						// 		blurRadius: 6.0,
+						// 	),
+						// ],
 					),
 					child: Column(
 						children: [
