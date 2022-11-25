@@ -40,7 +40,7 @@ class _SearchPageState extends State<SearchPage> {
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
-			backgroundColor: maBlack,
+			backgroundColor: maBlackDarker,
 			appBar: _buildAppBar(),
 			body: Column (
 				//padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -81,7 +81,7 @@ class _SearchPageState extends State<SearchPage> {
 			margin: const EdgeInsets.only(top: 30, bottom: 10),
 			padding: const EdgeInsets.symmetric(horizontal: 10),
 			decoration: BoxDecoration(
-				border: Border.all(color: maBlackDarker, width: 2, style: BorderStyle.solid),
+				border: Border.all(color: maBlackDarkest2, width: 2, style: BorderStyle.solid),
 				borderRadius: BorderRadius.circular(20),
 			),
 			child: TextFormField(
@@ -118,7 +118,7 @@ class _SearchPageState extends State<SearchPage> {
 
 	AppBar _buildAppBar() {
 		return AppBar(
-			backgroundColor: maBlackDarkest,
+			backgroundColor: maBlackDarkest3,
 			centerTitle: true,
 			title: const Text(
 				'SEARCH', 

@@ -77,7 +77,7 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
-			backgroundColor: maBlack,
+			backgroundColor: maBlackDarker,
 			appBar: _buildAppBar(),
 			body: FutureBuilder(
 				future: getMovieDetail(widget.movieId, widget.mediaType),
@@ -513,7 +513,7 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 
 	AppBar _buildAppBar() {
 		return AppBar(
-			backgroundColor: maBlackDarkest,
+			backgroundColor: maBlackDarkest3,
 			centerTitle: true,
 			title: const Text(
 				'MOVIE DETAIL', 

@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
 
 	AppBar _buildAppBar() {
 		return AppBar(
-			backgroundColor: maBlackDarkest,
+			backgroundColor: maBlackDarkest3,
 			centerTitle: true,
 			title: const Text(
 				'MOVIEAPP', 
@@ -234,7 +234,7 @@ class _HomePageState extends State<HomePage> {
 
 	BottomNavigationBar _buildBottomNavBar () {
 		return BottomNavigationBar(
-			backgroundColor: maBlackDarkest,
+			backgroundColor: maBlackDarkest3,
 			fixedColor: maWhite,
 			unselectedItemColor: const Color.fromARGB(255, 114, 113, 113),
 			currentIndex: mediaType == 'tv' ? 1 : 0,
@@ -302,7 +302,7 @@ class _HomePageState extends State<HomePage> {
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
-			backgroundColor: maBlack,
+			backgroundColor: maBlackDarker,
 			key: _scaffoldKey,
 			appBar: _buildAppBar(),
 			drawer: _buildDrawer(),

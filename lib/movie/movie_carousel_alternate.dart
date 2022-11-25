@@ -101,7 +101,7 @@ class _MovieCarouselAlternateState extends State<MovieCarouselAlternate> {
 				child: Stack(
 					children: [
 						Container(
-							color: maBlackDarker,
+							color: maBlackDarkest,
 							child: movie.posterPath != '' && movie.backdropPath != '' ? CachedNetworkImage(
 								imageUrl: '$posterRootURL${movie.backdropPath != '' ? movie.backdropPath : movie.posterPath}',
 								placeholder: ((context, url) => const SizedBox(

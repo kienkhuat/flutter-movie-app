@@ -97,107 +97,99 @@ class _MovieHorizontalGridState extends State<MovieHorizontalGrid> {
 					child: ClipRRect(
 						borderRadius: BorderRadius.circular(20),
 						child: Container(
-							decoration: const BoxDecoration(
-								color: maBlackDarker
+							height: 500,
+							decoration: BoxDecoration(
+								color: maBlackDarkest,
+								image: DecorationImage(
+									image: movies[index].posterPath != '' ? CachedNetworkImageProvider(
+										'$posterRootURL${movies[index].posterPath}',
+									) : const AssetImage('assets/images/movie_poster_placeholder.png') as ImageProvider,
+									fit: BoxFit.cover,
+								),
 							),
-							child: Stack(
+							child: Column(
+								mainAxisAlignment: MainAxisAlignment.spaceBetween,
 								children: [
-									movies[index].posterPath != '' ? CachedNetworkImage(
-										imageUrl: '$posterRootURL${movies[index].posterPath}',
-										placeholder: ((context, url) => const Center(
-											child: CircularProgressIndicator(color: maGrey,)
-										)),
-										errorWidget: (context, url, error) => const Center(
-											child: Icon(Icons.error, color: maGrey)
-										),
-										fit: BoxFit.cover,
-										height: 500,
-									) : Image.asset('assets/images/movie_poster_placeholder.png'),
+									Container(),
 									Column(
-										mainAxisAlignment: MainAxisAlignment.spaceBetween,
 										children: [
-											Container(),
-											Column(
-												children: [
-													Container(
-														width: 1000,
-														padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-														decoration: BoxDecoration(
-															color: maBlackDarker.withOpacity(0.8),
-															border: Border.all(
-																width: 0, 
-																color: maBlackDarker.withOpacity(0.8),
-																style: BorderStyle.none,
-															),
-														),
-														child: Text(
-															movies[index].title,
-															style: const TextStyle(
-																color: maWhite,
-																fontWeight: FontWeight.bold,
-															),
-														),
+											Container(
+												width: 1000,
+												padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+												decoration: BoxDecoration(
+													color: maBlackDarker.withOpacity(0.8),
+													border: Border.all(
+														width: 0, 
+														color: maBlackDarker.withOpacity(0.8),
+														style: BorderStyle.none,
 													),
-													Container(
-														height: 100,
-														width: 1000,
-														decoration: BoxDecoration(
-															color: maBlackDarker.withOpacity(0.8),
-															border: Border.all(
-																width: 0, 
-																color: maBlackDarker,
-																style: BorderStyle.none,
-															),
-														),
-														padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-														child: Column(
-															crossAxisAlignment: CrossAxisAlignment.start,
+												),
+												child: Text(
+													movies[index].title,
+													style: const TextStyle(
+														color: maWhite,
+														fontWeight: FontWeight.bold,
+													),
+												),
+											),
+											Container(
+												height: 100,
+												width: 1000,
+												decoration: BoxDecoration(
+													color: maBlackDarker.withOpacity(0.8),
+													border: Border.all(
+														width: 0, 
+														color: maBlackDarker,
+														style: BorderStyle.none,
+													),
+												),
+												padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+												child: Column(
+													crossAxisAlignment: CrossAxisAlignment.start,
+													children: [
+														Row(
+															mainAxisAlignment: MainAxisAlignment.spaceBetween,
 															children: [
 																Row(
-																	mainAxisAlignment: MainAxisAlignment.spaceBetween,
 																	children: [
-																		Row(
-																			children: [
-																				Container(),
-																					const Icon(
-																						Icons.star_rounded,
-																						color: Colors.orange,
-																						size: 14
-																				),
-																				Text(
-																					movies[index].voteAverage % 1 == 0
-																					? movies[index].voteAverage.toInt().toString()
-																					: movies[index].voteAverage.toStringAsFixed(1),
-																					style: const TextStyle(
-																						color: maWhite,
-																						fontSize: 14,
-																					)
-																				),
-																				const Text('/10', style: TextStyle(color: Colors.grey, fontSize: 14)),
-																			],
+																		Container(),
+																			const Icon(
+																				Icons.star_rounded,
+																				color: Colors.orange,
+																				size: 14
 																		),
-																		movies[index].releaseDate != '' ? Text(
-																			movies[index].releaseDate.substring(0, 4),
+																		Text(
+																			movies[index].voteAverage % 1 == 0
+																			? movies[index].voteAverage.toInt().toString()
+																			: movies[index].voteAverage.toStringAsFixed(1),
 																			style: const TextStyle(
-																				color: maGrey,
+																				color: maWhite,
 																				fontSize: 14,
 																			)
-																		) : Container()
+																		),
+																		const Text('/10', style: TextStyle(color: Colors.grey, fontSize: 14)),
 																	],
 																),
-																AutoSizeText(
-																	movies[index].overview,
+																movies[index].releaseDate != '' ? Text(
+																	movies[index].releaseDate.substring(0, 4),
 																	style: const TextStyle(
-																		color: maGreyDarker,
-																	),
-																	maxLines: 3,
-																	overflow: TextOverflow.ellipsis,
-																),
+																		color: maGrey,
+																		fontSize: 14,
+																	)
+																) : Container()
 															],
-														)
-													)
-												],
-											),
+														),
+														AutoSizeText(
+															movies[index].overview,
+															style: const TextStyle(
+																color: maGreyDarker,
+															),
+															maxLines: 3,
+															overflow: TextOverflow.ellipsis,
+														),
+													],
+												)
+											)
 										],
 									),
 								],
