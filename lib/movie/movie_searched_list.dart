@@ -3,7 +3,6 @@ import 'package:movieapp/constants/colors.dart';
 import 'package:movieapp/model/movie.dart';
 import 'package:movieapp/movie/movie_action.dart';
 import 'package:movieapp/movie/movie_list_tiles.dart';
-import 'package:number_paginator/number_paginator.dart';
 
 class MovieSearchedList extends StatefulWidget {
 	final String searchInput;

@@ -16,7 +16,7 @@ class _SearchPageState extends State<SearchPage> {
 	late String searchInput = widget.searchInput;
 	late int pageNumber = 1;
 	late int totalPageNumber = 0;
-	late NumberPaginatorController _numberPaginatorController = NumberPaginatorController();
+	late final NumberPaginatorController _numberPaginatorController = NumberPaginatorController();
 
 	@override
 	void initState() {

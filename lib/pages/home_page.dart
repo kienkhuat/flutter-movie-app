@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/constants/colors.dart';
 import 'package:movieapp/movie/movie_action.dart';
-import 'package:movieapp/movie/movie_carousel.dart';
 import 'package:movieapp/movie/movie_carousel_alternate.dart';
 import 'package:movieapp/movie/movie_horizontal_grid.dart';
 import 'package:movieapp/pages/search_page.dart';
@@ -18,7 +17,6 @@ class _HomePageState extends State<HomePage> {
 	late String mediaType;
 	late List<Widget> widgetsToRender;
 	final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-	late bool _isCustomTileExpanded = false;
 
 	@override
 	void initState() {

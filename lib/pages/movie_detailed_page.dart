@@ -5,14 +5,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:movieapp/constants/colors.dart';
-import 'package:movieapp/model/movie.dart';
 import 'package:movieapp/model/movie_cast.dart';
 import 'package:movieapp/model/movie_image.dart';
 import 'package:movieapp/model/movie_video.dart';
 import 'package:movieapp/movie/movie_action.dart';
 import 'package:movieapp/constants/poster_root_url.dart';
-import 'package:photo_view/photo_view.dart';
-import 'package:photo_view/photo_view_gallery.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class MovieDetailedPage extends StatefulWidget {
