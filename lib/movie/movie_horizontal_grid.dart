@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -110,91 +112,85 @@ class _MovieHorizontalGridState extends State<MovieHorizontalGrid> {
 							child: Column(
 								mainAxisAlignment: MainAxisAlignment.spaceBetween,
 								children: [
-									Container(),
-									Column(
-										children: [
-											Container(
-												width: 1000,
-												padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-												decoration: BoxDecoration(
-													color: maBlackDarker.withOpacity(0.8),
-													border: Border.all(
-														width: 0, 
-														color: maBlackDarker.withOpacity(0.8),
-														style: BorderStyle.none,
-													),
-												),
-												child: Text(
-													movies[index].title,
-													style: const TextStyle(
-														color: maWhite,
-														fontWeight: FontWeight.bold,
-													),
-												),
-											),
-											Container(
-												height: 100,
-												width: 1000,
-												decoration: BoxDecoration(
-													color: maBlackDarker.withOpacity(0.8),
-													border: Border.all(
-														width: 0, 
-														color: maBlackDarker,
-														style: BorderStyle.none,
-													),
-												),
-												padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-												child: Column(
-													crossAxisAlignment: CrossAxisAlignment.start,
-													children: [
-														Row(
-															mainAxisAlignment: MainAxisAlignment.spaceBetween,
+									const Spacer(),
+									ClipRRect(
+										child: BackdropFilter(
+											filter: ImageFilter.blur(sigmaX: 40, sigmaY: 40),
+											child: Column(
+												children: [
+													Container(
+														width: 1000,
+														decoration: BoxDecoration(
+															color: maBlackDarkest3.withOpacity(0.3),
+															border: Border.all(
+																width: 0, 
+																color: maBlackDarker,
+																style: BorderStyle.none,
+															),
+														),
+														padding: const EdgeInsets.fromLTRB(10, 10, 10, 15),
+														child: Column(
+															crossAxisAlignment: CrossAxisAlignment.start,
 															children: [
+																Text(
+																	movies[index].title,
+																	style: const TextStyle(
+																		color: maWhite,
+																		fontWeight: FontWeight.bold,
+																	),
+																),
+																Container(padding: const EdgeInsets.only(top: 3),),
 																Row(
+																	mainAxisAlignment: MainAxisAlignment.spaceBetween,
 																	children: [
-																		Container(),
-																			const Icon(
-																				Icons.star_rounded,
-																				color: Colors.orange,
-																				size: 14
+																		Row(
+																			children: [
+																				Container(),
+																					const Icon(
+																						Icons.star_rounded,
+																						color: Colors.orange,
+																						size: 14
+																				),
+																				Text(
+																					movies[index].voteAverage % 1 == 0
+																					? movies[index].voteAverage.toInt().toString()
+																					: movies[index].voteAverage.toStringAsFixed(1),
+																					style: const TextStyle(
+																						color: maWhite,
+																						fontSize: 14,
+																					)
+																				),
+																				const Text('/10', style: TextStyle(color: Colors.grey, fontSize: 14)),
+																			],
 																		),
-																		Text(
-																			movies[index].voteAverage % 1 == 0
-																			? movies[index].voteAverage.toInt().toString()
-																			: movies[index].voteAverage.toStringAsFixed(1),
+																		movies[index].releaseDate != '' ? Text(
+																			movies[index].releaseDate.substring(0, 4),
 																			style: const TextStyle(
-																				color: maWhite,
+																				color: maGrey,
 																				fontSize: 14,
 																			)
-																		),
-																		const Text('/10', style: TextStyle(color: Colors.grey, fontSize: 14)),
+																		) : Container()
 																	],
 																),
-																movies[index].releaseDate != '' ? Text(
-																	movies[index].releaseDate.substring(0, 4),
+																Container(padding: const EdgeInsets.only(top: 3),),
+																AutoSizeText(
+																	movies[index].overview,
 																	style: const TextStyle(
-																		color: maGrey,
-																		fontSize: 14,
-																	)
-																) : Container()
+																		color: maGreyDarker,
+																	),
+																	maxLines: 3,
+																	overflow: TextOverflow.ellipsis,
+																),
 															],
-														),
-														AutoSizeText(
-															movies[index].overview,
-															style: const TextStyle(
-																color: maGreyDarker,
-															),
-															maxLines: 3,
-															overflow: TextOverflow.ellipsis,
-														),
-													],
-												)
+														)
+													)
+												],
 											)
-										],
+										)
 									),
 								],
 							),
-						),
+						)
 					)
 				),
 			);
