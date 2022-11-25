@@ -355,7 +355,7 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 
 	Widget renderCast () {
 		int limitLength = 15;
-		return Container(
+		return SizedBox(
 			width: MediaQuery.of(context).size.width,
 			child: Column(
 				crossAxisAlignment: CrossAxisAlignment.start,
