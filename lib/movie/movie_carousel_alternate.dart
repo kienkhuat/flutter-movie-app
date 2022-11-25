@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -123,25 +125,30 @@ class _MovieCarouselAlternateState extends State<MovieCarouselAlternate> {
 							mainAxisAlignment: MainAxisAlignment.spaceBetween,
 							children: [
 								Container(),
-								Container(
-									padding: const EdgeInsets.all(10),
-									height: 50,
-									width: 1000,
-									color: maBlackDarker.withOpacity(0.8),
-									child: Column(
-										children: [
-											AutoSizeText(
-												movie.title,
-												maxLines: 1,
-												overflow: TextOverflow.ellipsis,
-												style: const TextStyle(
-													color: maGrey,
-													fontSize: 16,
-													fontWeight: FontWeight.bold,
-												),
+								ClipRRect(
+									child: BackdropFilter(
+										filter: ImageFilter.blur(sigmaX: 40, sigmaY: 40),
+										child: Container(
+											padding: const EdgeInsets.all(10),
+											height: 40,
+											width: 1000,
+											color: maBlackDarkest.withOpacity(0.3),
+											child: Column(
+												children: [
+													AutoSizeText(
+														movie.title,
+														maxLines: 1,
+														overflow: TextOverflow.ellipsis,
+														style: const TextStyle(
+															color: maGrey,
+															fontSize: 16,
+															fontWeight: FontWeight.bold,
+														),
+													),
+												]
 											),
-										]
-									),
+										)
+									)
 								),
 							],
 						),
