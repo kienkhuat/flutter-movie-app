@@ -126,6 +126,12 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 																							width: 125,
 																							child: snapshot.data!.posterPath != '' || snapshot.data!.profilePath != '' ? CachedNetworkImage(
 																								imageUrl: '$posterRootURL${snapshot.data!.posterPath != '' ? snapshot.data?.posterPath : snapshot.data!.profilePath}',
+																								placeholder: ((context, url) => const Center(
+																									child: CircularProgressIndicator(color: maGrey,)
+																								)),
+																								errorWidget: (context, url, error) => const Center(
+																									child: Icon(Icons.error, color: maGrey)
+																								),
 																								fit: BoxFit.cover,
 																								alignment: Alignment.topCenter,
 																							) : Image.asset('assets/images/movie-poster-placeholder.png')
@@ -253,7 +259,8 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 																			)
 																		),
 																		Container(
-																			child: widget.mediaType == 'movie' || widget.mediaType == 'tv' ? Container(
+																			child: widget.mediaType == 'movie' || widget.mediaType == 'tv'
+																			&& (castList.isNotEmpty || videoList.isNotEmpty || backdropImageList.isNotEmpty) ? Container(
 																				padding: const EdgeInsets.only(top: 5),
 																				child: Column(
 																					children: [
@@ -264,11 +271,14 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 																							children: [
 																								renderBackdropImages()
 																							],
-																						) : Container(),
+																						) : Container(
+																							height: MediaQuery.of(context).size.height - 650,
+																							margin: const EdgeInsets.only(bottom: 15)
+																						),
 																					],
 																				)
 																			) : Container(
-																				height: MediaQuery.of(context).size.height - 600,
+																				height: MediaQuery.of(context).size.height - 650,
 																				margin: const EdgeInsets.only(bottom: 15)
 																			),
 																		),
@@ -336,7 +346,7 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 										AutoSizeText(
 											cast.character,
 											style: const TextStyle(color: maGreyDarker),
-											maxLines: 2,
+											maxLines: 4,
 											minFontSize: 8,
 											overflow: TextOverflow.ellipsis,
 										)
