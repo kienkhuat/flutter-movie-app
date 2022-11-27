@@ -1,16 +1,17 @@
 # movieapp
 
-A new Flutter project.
+A movie app using moviedb api.
 
 ## Getting Started
+Require Moviedb API Key.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Dependencies: 
+- cupertino_icons: ^1.0.2
+- dio: ^4.0.6
+- carousel_slider: ^4.1.1
+- truncate: ^3.0.1
+- number_paginator: ^0.2.2
+- cached_network_image: ^3.2.2
+- youtube_player_iframe: ^3.1.0
+- auto_size_text: ^3.0.0
+- photo_view: ^0.14.0
