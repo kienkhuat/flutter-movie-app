@@ -76,7 +76,8 @@ class _MovieHorizontalGridState extends State<MovieHorizontalGrid> {
 								crossAxisSpacing: 15,
 								childAspectRatio: 1.5,
 								scrollDirection: Axis.horizontal,
-								children: movieGridWidgetList(snapshot.data!)
+								physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+								children: movieGridWidgetList(snapshot.data!),
 							)
 						)
 					],
