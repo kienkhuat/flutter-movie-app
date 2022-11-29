@@ -78,6 +78,8 @@ class _MovieCarouselAlternateState extends State<MovieCarouselAlternate> {
 									scrollDirection: Axis.horizontal,
 									enlargeCenterPage: true,
 									viewportFraction: 0.8,
+									autoPlay: true,
+									autoPlayInterval: const Duration(seconds: 5),
 								),
 								itemBuilder: (context, index, realIndex) {
 									return movieCarouselCard(snapshot.data![index]);
