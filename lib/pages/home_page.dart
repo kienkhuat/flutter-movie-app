@@ -289,9 +289,9 @@ class _HomePageState extends State<HomePage> {
 				widgetsToRender = [
 					MovieCarouselAlternate(listName: 'Trending TV Series', movieList: getTrendingMovies('tv'), showListTitle: true, mediaType: 'tv'),
 					const Padding(padding: EdgeInsets.only(top: 20),),
-					MovieHorizontalGrid(listName: 'Top Rated TV Series', movieList: getTopRatedTvSeries(1), showListTitle: true, mediaType: 'tv'),
-					const Padding(padding: EdgeInsets.only(top: 20),),
 					MovieHorizontalGrid(listName: 'Popular TV Series', movieList: getPopularTvSeries(1), showListTitle: true, mediaType: 'tv'),
+					const Padding(padding: EdgeInsets.only(top: 20),),
+					MovieHorizontalGrid(listName: 'Top Rated TV Series', movieList: getTopRatedTvSeries(1), showListTitle: true, mediaType: 'tv'),
 				]
 			});
 		}
