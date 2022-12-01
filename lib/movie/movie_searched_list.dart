@@ -41,6 +41,7 @@ class _MovieSearchedListState extends State<MovieSearchedList> {
 						padding: const EdgeInsets.symmetric(horizontal: 15),
 						child: ListView(
 							shrinkWrap: true,
+							physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
 							children: _buildSearchedList(snapshot.data!, context),
 						)
 					)

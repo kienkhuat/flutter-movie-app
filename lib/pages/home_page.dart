@@ -307,6 +307,7 @@ class _HomePageState extends State<HomePage> {
 			endDrawer: _buildEndDrawer(),
 			bottomNavigationBar: _buildBottomNavBar(),
 			body: ListView(
+				physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
 				children: [
 					...widgetsToRender,
 					Container(padding: const EdgeInsets.only(bottom: 12)),
