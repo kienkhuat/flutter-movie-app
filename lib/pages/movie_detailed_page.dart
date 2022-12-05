@@ -96,7 +96,7 @@ class _MovieDetailedStatePage extends State<MovieDetailedPage> {
 							),
 						),
 						child: ListView(
-							physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+							//physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
 							children: [
 								Stack(
 									children: [
